@@ -10,16 +10,11 @@ mkdir phpmyadmin && tar xf phpmyadmin.tar.gz -C phpmyadmin --strip-components 1
 
 rm phpmyadmin.tar.gz
 
-CMD=/vagrant/scripts/serve-laravel.sh
+CMD=/vagrant/scripts/site-types/laravel.sh
 CMD_CERT=/vagrant/scripts/create-certificate.sh
 
-if [ ! -f $CMD ]; then
-    # Fallback for older Homestead versions
-    CMD=/vagrant/scripts/serve.sh
-else
-    # Create an SSL certificate
-    sudo bash $CMD_CERT phpmyadmin.test
-fi
+# Create an SSL certificate
+sudo bash $CMD_CERT phpmyadmin.test
 
 sudo bash $CMD phpmyadmin.test $(pwd)/phpmyadmin 80 443 7.3
 
